@@ -107,7 +107,7 @@ $bulan = [
 
                     <!-- QTY -->
                     <td>
-                        <span class="badge-qty">
+                        <span class="badge-qty" style="padding-top: 0.25rem; padding-bottom: 0.15rem;">
                             <span class="badge-label">Masuk</span>
                             <span class="badge-value"><?= (int)$d['qty_stock'] ?> <?= htmlspecialchars($d['unit_stock']) ?></span>
                         </span>
@@ -123,7 +123,7 @@ $bulan = [
 
                     <!-- PRICE -->
                     <td>
-                        <span class="badge-price">
+                        <span class="badge-price" style="padding-top: 0.25rem; padding-bottom: 0.15rem;">
                             <span class="badge-label">Harga Beli</span>
                             <span class="badge-value">Rp <?= number_format($d['price_unit'], 0, ',', '.') ?></span>
                         </span>

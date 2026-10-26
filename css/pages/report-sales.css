@@ -9,7 +9,8 @@
 #reportOmzetSummaryCard,
 #reportExpenseSummaryCard,
 #reportProfitSummaryCard,
-#reportMarginSummaryCard {
+#reportMarginSummaryCard,
+#reportUnpaidSummaryCard {
     background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
     color: #fff;
     border: 1.5px solid rgba(99,102,241,0.4);
@@ -1220,7 +1221,8 @@
     .report-sales-card #reportOmzetSummaryCard,
     .report-sales-card #reportExpenseSummaryCard,
     .report-sales-card #reportProfitSummaryCard,
-    .report-sales-card #reportMarginSummaryCard{
+    .report-sales-card #reportMarginSummaryCard,
+    .report-sales-card #reportUnpaidSummaryCard{
 
         padding: 18px 14px !important;
         border-radius: 16px !important;
@@ -1237,7 +1239,8 @@
     .report-sales-card #reportOmzetSummaryCard .d-flex,
     .report-sales-card #reportExpenseSummaryCard .d-flex,
     .report-sales-card #reportProfitSummaryCard .d-flex,
-    .report-sales-card #reportMarginSummaryCard .d-flex{
+    .report-sales-card #reportMarginSummaryCard .d-flex,
+    .report-sales-card #reportUnpaidSummaryCard .d-flex{
 
         flex-direction: column;
         align-items: center !important;
@@ -1256,7 +1259,8 @@
     .report-sales-card #reportOmzetSummaryCard .d-flex > div:first-child,
     .report-sales-card #reportExpenseSummaryCard .d-flex > div:first-child,
     .report-sales-card #reportProfitSummaryCard .d-flex > div:first-child,
-    .report-sales-card #reportMarginSummaryCard .d-flex > div:first-child{
+    .report-sales-card #reportMarginSummaryCard .d-flex > div:first-child,
+    .report-sales-card #reportUnpaidSummaryCard .d-flex > div:first-child{
 
         flex-direction: column;
         align-items: center;
@@ -1287,7 +1291,8 @@
     .report-sales-card #totalOmzetAmountLabel,
     .report-sales-card #totalExpenseAmountLabel,
     .report-sales-card #totalProfitAmountLabel,
-    .report-sales-card #totalMarginAmountLabel{
+    .report-sales-card #totalMarginAmountLabel,
+    .report-sales-card #totalUnpaidAmountLabel{
 
         width: 100%;
         text-align: center;

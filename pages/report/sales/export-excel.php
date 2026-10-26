@@ -27,7 +27,8 @@ $tabLabels = [
     'product'  => 'LAPORAN PENJUALAN PER PRODUK',
     'category' => 'LAPORAN PENJUALAN PER KATEGORI',
     'cashier'  => 'LAPORAN PENJUALAN PER KASIR',
-    'best'     => 'LAPORAN PRODUK TERLARIS'
+    'best'     => 'LAPORAN PRODUK TERLARIS',
+    'unpaid'   => 'LAPORAN PIUTANG'
 ];
 
 $tabTitles = [
@@ -40,7 +41,8 @@ $tabTitles = [
     'product'  => 'Laporan Penjualan Per Produk',
     'category' => 'Laporan Penjualan Per Kategori',
     'cashier'  => 'Laporan Penjualan Per Kasir',
-    'best'     => 'Laporan Produk Terlaris'
+    'best'     => 'Laporan Produk Terlaris',
+    'unpaid'   => 'Laporan Piutang'
 ];
 
 $title  = isset($tabLabels[$tab]) ? $tabLabels[$tab] : 'LAPORAN PENJUALAN';
@@ -109,6 +111,11 @@ switch ($tab) {
         if ($limit <= 0) $limit = 10;
         $q = mysqli_query($conn, "SELECT p.name, p.category, COALESCE(SUM(od.qty),0) AS qty_sold, COALESCE(SUM(od.subtotal),0) AS omzet FROM order_details od JOIN orders o ON od.order_id=o.id JOIN products p ON od.product_id=p.id WHERE o.status_payment='paid' AND $where GROUP BY p.id, p.name, p.category ORDER BY qty_sold DESC, omzet DESC LIMIT $limit");
         if ($q) while ($r = mysqli_fetch_assoc($q)) { $total+=(int)$r['qty_sold']; $rows[]=$r; }
+        break;
+
+    case 'unpaid':
+        $q = mysqli_query($conn, "SELECT o.code, o.tanggal, o.total, COALESCE(NULLIF(u.fullname,''),u.username,'-') AS cashier_name FROM orders o LEFT JOIN users u ON o.staff_id=u.id WHERE o.status_payment='waiting' AND $where ORDER BY o.tanggal DESC, o.id DESC");
+        if ($q) while ($r = mysqli_fetch_assoc($q)) { $total+=(float)$r['total']; $rows[]=$r; }
         break;
 }
 
@@ -748,7 +755,8 @@ $headers = [
     'product'  => ['No', 'Tanggal', 'Kode Pesanan', 'Qty', 'Harga', 'Subtotal'],
     'category' => ['No', 'Produk', 'Kode', 'Qty Terjual', 'Omzet'],
     'cashier'  => ['No', 'Kode Pesanan', 'Tanggal', 'Total', 'Status'],
-    'best'     => ['Peringkat', 'Produk', 'Kategori', 'Qty Terjual', 'Omzet']
+    'best'     => ['Peringkat', 'Produk', 'Kategori', 'Qty Terjual', 'Omzet'],
+    'unpaid'   => ['No', 'Kode Pesanan', 'Tanggal', 'Kasir', 'Total', 'Status']
 ];
 
 $hdrs = isset($headers[$tab]) ? $headers[$tab] : $headers['all'];
@@ -902,6 +910,15 @@ for ($idx = 0; $idx < $count; $idx++) {
             $sheet->setCellValue("D$row", (int) $r['qty_sold']);
             $sheet->setCellValue("E$row", (float) $r['omzet']);
             break;
+
+        case 'unpaid':
+            $sheet->setCellValue("A$row", $no);
+            $sheet->setCellValue("B$row", $r['code']);
+            $sheet->setCellValue("C$row", date('d M Y', strtotime($r['tanggal'])));
+            $sheet->setCellValue("D$row", $r['cashier_name']);
+            $sheet->setCellValue("E$row", (float) $r['total']);
+            $sheet->setCellValue("F$row", 'Belum Bayar');
+            break;
     }
 
     $row++;
@@ -918,7 +935,8 @@ $totalLabels = [
     'product'  => 'TOTAL',
     'category' => 'TOTAL',
     'cashier'  => 'TOTAL OMZET (TERBAYAR)',
-    'best'     => 'TOTAL'
+    'best'     => 'TOTAL',
+    'unpaid'   => 'TOTAL PIUTANG'
 ];
 $totalLabel = isset($totalLabels[$tab]) ? $totalLabels[$tab] : 'TOTAL';
 
@@ -933,7 +951,8 @@ $totalColMap = [
     'product'  => 'F',
     'category' => 'E',
     'cashier'  => 'D',
-    'best'     => 'E'
+    'best'     => 'E',
+    'unpaid'   => 'E'
 ];
 $totalCol = isset($totalColMap[$tab]) ? $totalColMap[$tab] : 'D';
 $totalColIdx = ord($totalCol) - ord('A');
@@ -967,6 +986,8 @@ if ($tab === 'best' || $tab === 'category' || $tab === 'product') {
         $formula = "=SUMIF(F$firstDataRow:F$lastDataRow,\"Terbayar\",E$firstDataRow:E$lastDataRow)";
     } elseif ($tab === 'cashier') {
         $formula = "=SUMIF(E$firstDataRow:E$lastDataRow,\"Terbayar\",D$firstDataRow:D$lastDataRow)";
+    } elseif ($tab === 'unpaid') {
+        $formula = "=SUM(E$firstDataRow:E$lastDataRow)";
     } else {
         $formula = "=SUM($totalCol$firstDataRow:$totalCol$lastDataRow)";
     }
@@ -1011,7 +1032,8 @@ $rpColMap = [
     'product'  => ['E', 'F'],
     'category' => ['E'],
     'cashier'  => ['D'],
-    'best'     => ['E']
+    'best'     => ['E'],
+    'unpaid'   => ['E']
 ];
 $rpCols = isset($rpColMap[$tab]) ? $rpColMap[$tab] : ['D'];
 if ($hasDataRows) {

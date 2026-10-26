@@ -156,29 +156,29 @@
                 <!-- MASTER DATA -->
                 <li class="nav-title">MASTER</li>
 
-                <li class="nav-item <?= ($current_page == 'coming-soon.php' && $menu == 'master-product') ? 'active' : ''; ?>">
-                    <a href="<?php echo BASE_URL; ?>/pages/coming-soon.php?menu=master-product" class="nav-link" data-tooltip="Master Produk">
+                <li class="nav-item <?= ($current_page == 'master-product.php') ? 'active' : ''; ?>">
+                    <a href="<?php echo BASE_URL; ?>/pages/master/master-product.php" class="nav-link" data-tooltip="Master Produk">
                         <span class="sidebar-icon"><i class="fas fa-boxes-stacked"></i></span>
                         <span class="sidebar-text">Master Produk</span>
                     </a>
                 </li>
 
-                <li class="nav-item <?= ($current_page == 'coming-soon.php' && $menu == 'master-unit') ? 'active' : ''; ?>">
-                    <a href="<?php echo BASE_URL; ?>/pages/coming-soon.php?menu=master-unit" class="nav-link" data-tooltip="Master Unit">
+                <li class="nav-item <?= ($current_page == 'master-unit.php') ? 'active' : ''; ?>">
+                    <a href="<?php echo BASE_URL; ?>/pages/master/master-unit.php" class="nav-link" data-tooltip="Master Unit">
                         <span class="sidebar-icon"><i class="fas fa-ruler-combined"></i></span>
                         <span class="sidebar-text">Master Unit</span>
                     </a>
                 </li>
 
-                <li class="nav-item <?= ($current_page == 'coming-soon.php' && $menu == 'master-supplier') ? 'active' : ''; ?>">
-                    <a href="<?php echo BASE_URL; ?>/pages/coming-soon.php?menu=master-supplier" class="nav-link" data-tooltip="Master Supplier">
+                <li class="nav-item <?= ($current_page == 'master-supplier.php') ? 'active' : ''; ?>">
+                    <a href="<?php echo BASE_URL; ?>/pages/master/master-supplier.php" class="nav-link" data-tooltip="Master Supplier">
                         <span class="sidebar-icon"><i class="fas fa-truck"></i></span>
                         <span class="sidebar-text">Master Supplier</span>
                     </a>
                 </li>
 
-                <li class="nav-item <?= ($current_page == 'coming-soon.php' && $menu == 'master-customer') ? 'active' : ''; ?>">
-                    <a href="<?php echo BASE_URL; ?>/pages/coming-soon.php?menu=master-customer" class="nav-link" data-tooltip="Master Customer">
+                <li class="nav-item <?= ($current_page == 'master-customer.php') ? 'active' : ''; ?>">
+                    <a href="<?php echo BASE_URL; ?>/pages/master/master-customer.php" class="nav-link" data-tooltip="Master Customer">
                         <span class="sidebar-icon"><i class="fas fa-users"></i></span>
                         <span class="sidebar-text">Master Customer</span>
                     </a>
@@ -194,22 +194,22 @@
                 <!-- STOK ACTION (SUMBER BARANG / FIFO) -->
                 <li class="nav-title">STOK ACTION</li>
 
-                <li class="nav-item <?= ($current_page == 'restock.php' || ($current_page == 'coming-soon.php' && $menu == 'restock')) ? 'active' : ''; ?>">
-                    <a href="<?php echo BASE_URL; ?>/pages/coming-soon.php?menu=restock" class="nav-link" data-tooltip="Belanja &amp; Restock">
+                <li class="nav-item <?= ($current_page == 'restock.php') ? 'active' : ''; ?>">
+                    <a href="<?php echo BASE_URL; ?>/pages/stock/restock.php" class="nav-link" data-tooltip="Belanja &amp; Restock">
                         <span class="sidebar-icon"><i class="fas fa-cart-shopping"></i></span>
                         <span class="sidebar-text">Belanja &amp; Restock</span>
                     </a>
                 </li>
 
-                <li class="nav-item <?= ($current_page == 'transfer.php' || ($current_page == 'coming-soon.php' && $menu == 'transfer')) ? 'active' : ''; ?>">
-                    <a href="<?php echo BASE_URL; ?>/pages/coming-soon.php?menu=transfer" class="nav-link" data-tooltip="Transfer Stok">
+                <li class="nav-item <?= ($current_page == 'transfer.php') ? 'active' : ''; ?>">
+                    <a href="<?php echo BASE_URL; ?>/pages/stock/transfer.php" class="nav-link" data-tooltip="Transfer Stok">
                         <span class="sidebar-icon"><i class="fas fa-exchange-alt"></i></span>
                         <span class="sidebar-text">Transfer Stok</span>
                     </a>
                 </li>
 
-                <li class="nav-item <?= ($current_page == 'stock.php' || ($current_page == 'coming-soon.php' && $menu == 'stock')) ? 'active' : ''; ?>">
-                    <a href="<?php echo BASE_URL; ?>/pages/coming-soon.php?menu=stock" class="nav-link" data-tooltip="Detail Stok">
+                <li class="nav-item <?= ($current_page == 'stock.php') ? 'active' : ''; ?>">
+                    <a href="<?php echo BASE_URL; ?>/pages/stock/stock.php" class="nav-link" data-tooltip="Detail Stok">
                         <span class="sidebar-icon"><i class="fas fa-warehouse"></i></span>
                         <span class="sidebar-text">Detail Stok</span>
                     </a>
@@ -228,8 +228,8 @@
                 <!-- LAPORAN -->
                 <li class="nav-title">LAPORAN</li>
 
-                <li class="nav-item <?= ($current_page == 'report-sales.php' || ($current_page == 'coming-soon.php' && $menu == 'report-sales')) ? 'active' : ''; ?>">
-                    <a href="<?php echo BASE_URL; ?>/pages/coming-soon.php?menu=report-sales" class="nav-link" data-tooltip="Laporan Penjualan">
+                <li class="nav-item <?= ($current_page == 'report-sales.php') ? 'active' : ''; ?>">
+                    <a href="<?php echo BASE_URL; ?>/pages/report/report-sales.php" class="nav-link" data-tooltip="Laporan Penjualan">
                         <span class="sidebar-icon"><i class="fas fa-chart-line"></i></span>
                         <span class="sidebar-text">Laporan Penjualan</span>
                     </a>
@@ -271,8 +271,8 @@
                 <!-- MASTER DATA -->
                 <li class="nav-title">MASTER</li>
 
-                <li class="nav-item <?= ($current_page == 'coming-soon.php' && $menu == 'master-customer') ? 'active' : ''; ?>">
-                    <a href="<?php echo BASE_URL; ?>/pages/coming-soon.php?menu=master-customer" class="nav-link" data-tooltip="Master Customer">
+                <li class="nav-item <?= ($current_page == 'master-customer.php') ? 'active' : ''; ?>">
+                    <a href="<?php echo BASE_URL; ?>/pages/master/master-customer.php" class="nav-link" data-tooltip="Master Customer">
                         <span class="sidebar-icon"><i class="fas fa-users"></i></span>
                         <span class="sidebar-text">Master Customer</span>
                     </a>
@@ -281,22 +281,22 @@
                 <!-- GUDANG KANTIN -->
                 <li class="nav-title">KANTIN</li>
 
-                <li class="nav-item <?= ($current_page == 'sales-stock.php' || ($current_page == 'coming-soon.php' && $menu == 'sales-stock')) ? 'active' : ''; ?>">
-                    <a href="<?php echo BASE_URL; ?>/pages/coming-soon.php?menu=sales-stock" class="nav-link" data-tooltip="Stok Kantin">
+                <li class="nav-item <?= ($current_page == 'sales-stock.php') ? 'active' : ''; ?>">
+                    <a href="<?php echo BASE_URL; ?>/pages/sales/sales-stock.php" class="nav-link" data-tooltip="Stok Kantin">
                         <span class="sidebar-icon"><i class="fas fa-store"></i></span>
                         <span class="sidebar-text">Stok Kantin</span>
                     </a>
                 </li>
 
-                <li class="nav-item <?= ($current_page == 'catalog.php' || ($current_page == 'coming-soon.php' && $menu == 'catalog')) ? 'active' : ''; ?>">
-                    <a href="<?php echo BASE_URL; ?>/pages/coming-soon.php?menu=catalog" class="nav-link" data-tooltip="Katalog Produk">
+                <li class="nav-item <?= ($current_page == 'catalog.php') ? 'active' : ''; ?>">
+                    <a href="<?php echo BASE_URL; ?>/pages/sales/catalog.php" class="nav-link" data-tooltip="Katalog Produk">
                         <span class="sidebar-icon"><i class="fas fa-book-open"></i></span>
                         <span class="sidebar-text">Katalog Produk</span>
                     </a>
                 </li>
 
-                <li class="nav-item <?= ($current_page == 'order.php' || ($current_page == 'coming-soon.php' && $menu == 'order')) ? 'active' : ''; ?>">
-                    <a href="<?php echo BASE_URL; ?>/pages/coming-soon.php?menu=order" class="nav-link" data-tooltip="Pesanan">
+                <li class="nav-item <?= ($current_page == 'order.php') ? 'active' : ''; ?>">
+                    <a href="<?php echo BASE_URL; ?>/pages/sales/order.php" class="nav-link" data-tooltip="Pesanan">
                         <span class="sidebar-icon"><i class="fas fa-receipt"></i></span>
                         <span class="sidebar-text">Pesanan</span>
                     </a>

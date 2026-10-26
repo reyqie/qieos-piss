@@ -134,8 +134,8 @@
 .badge-qty,
 .badge-remain,
 .badge-price {
-    padding: 8px 16px;
-    border-radius: 10px;
+    /* padding: 12px 16px; */
+    border-radius: 100px;
     font-size: 12.5px;
     font-weight: 700;
     display: inline-flex;
@@ -710,8 +710,8 @@
     margin-right: 0 !important;
 }
 
-#tableMutasiGudang_wrapper .row > [class*="col-"],
-#tableMutasiKantin_wrapper .row > [class*="col-"] {
+#tableMutasiGudang_wrapper .row>[class*="col-"],
+#tableMutasiKantin_wrapper .row>[class*="col-"] {
     padding-left: 0 !important;
     padding-right: 0 !important;
 }
@@ -828,8 +828,8 @@
         display: none;
     }
 
-    #tableStock > tbody,
-    #tableStock > tfoot {
+    #tableStock>tbody,
+    #tableStock>tfoot {
         border-top: 0 !important;
     }
 
@@ -925,7 +925,7 @@
     .badge-qty,
     .badge-remain,
     .badge-price {
-        padding: 7px 11px;
+        padding: 10px 11px;
         font-size: 11.5px;
         font-weight: 700;
         border-radius: 10px;
@@ -1161,7 +1161,7 @@
         content: none;
     }
 
-    .table-mutasi tbody tr:has(.empty-search) > td {
+    .table-mutasi tbody tr:has(.empty-search)>td {
         grid-area: auto !important;
         width: 100% !important;
         background: transparent !important;

@@ -53,7 +53,8 @@ $tabLabels = [
     'product'  => 'LAPORAN PENJUALAN PER PRODUK',
     'category' => 'LAPORAN PENJUALAN PER KATEGORI',
     'cashier'  => 'LAPORAN PENJUALAN PER KASIR',
-    'best'     => 'LAPORAN PRODUK TERLARIS'
+    'best'     => 'LAPORAN PRODUK TERLARIS',
+    'unpaid'   => 'LAPORAN PIUTANG'
 ];
 
 $tabTitles = [
@@ -66,7 +67,8 @@ $tabTitles = [
     'product'  => 'Laporan Penjualan Per Produk',
     'category' => 'Laporan Penjualan Per Kategori',
     'cashier'  => 'Laporan Penjualan Per Kasir',
-    'best'     => 'Laporan Produk Terlaris'
+    'best'     => 'Laporan Produk Terlaris',
+    'unpaid'   => 'Laporan Piutang'
 ];
 
 $title  = isset($tabLabels[$tab]) ? $tabLabels[$tab] : 'LAPORAN PENJUALAN';
@@ -173,6 +175,11 @@ switch ($tab) {
         $totalQty = 0;
         if ($q) while ($r = mysqli_fetch_assoc($q)) { $totalQty+=(int)$r['qty_sold']; $total+=(float)$r['omzet']; $rows[]=$r; }
         $extra['qty'] = $totalQty;
+        break;
+
+    case 'unpaid':
+        $q = mysqli_query($conn, "SELECT o.code, o.tanggal, o.total, COALESCE(NULLIF(u.fullname,''),u.username,'-') AS cashier_name FROM orders o LEFT JOIN users u ON o.staff_id=u.id WHERE o.status_payment='waiting' AND $where ORDER BY o.tanggal DESC, o.id DESC");
+        if ($q) while ($r = mysqli_fetch_assoc($q)) { $total+=(float)$r['total']; $rows[]=$r; }
         break;
 }
 
@@ -327,7 +334,8 @@ ob_start();
                     'product'  => ['w5','w18','w20','w10','w20','w27'],
                     'category' => ['w5','w25','w12','w15','w43'],
                     'cashier'  => ['w5','w20','w20','w27','w28'],
-                    'best'     => ['w8','w28','w18','w16','w30']
+                    'best'     => ['w8','w28','w18','w16','w30'],
+                    'unpaid'   => ['w5','w18','w17','w22','w20','w18']
                 ];
                 $colMap = [
                     'summary'  => ['No', 'Komponen', 'Keterangan', 'Jumlah'],
@@ -339,7 +347,8 @@ ob_start();
                     'product'  => ['No', 'Tanggal', 'Kode Pesanan', 'Qty', 'Harga', 'Subtotal'],
                     'category' => ['No', 'Produk', 'Kode', 'Qty Terjual', 'Omzet'],
                     'cashier'  => ['No', 'Kode Pesanan', 'Tanggal', 'Total', 'Status'],
-                    'best'     => ['Peringkat', 'Produk', 'Kategori', 'Qty Terjual', 'Omzet']
+                    'best'     => ['Peringkat', 'Produk', 'Kategori', 'Qty Terjual', 'Omzet'],
+                    'unpaid'   => ['No', 'Kode Pesanan', 'Tanggal', 'Kasir', 'Total', 'Status']
                 ];
                 $headers = isset($colMap[$tab]) ? $colMap[$tab] : $colMap['all'];
                 $widths = isset($colWidths[$tab]) ? $colWidths[$tab] : $colWidths['all'];
@@ -491,6 +500,17 @@ ob_start();
                 <?php
                         break;
 
+                    case 'unpaid':
+                ?>
+                        <td class="c w5"><?= $i + 1 ?></td>
+                        <td class="c w18"><b><?= sPdfEscape($r['code']) ?></b></td>
+                        <td class="c w17"><?= sPdfDateId($r['tanggal']) ?></td>
+                        <td class="l w22"><?= sPdfEscape($r['cashier_name']) ?></td>
+                        <td class="r w20"><?= sPdfRp($r['total']) ?></td>
+                        <td class="c w18"><span class="badge badge-waiting">Belum Bayar</span></td>
+                <?php
+                        break;
+
                 endswitch;
                 ?>
             </tr>
@@ -509,7 +529,8 @@ ob_start();
                     'product'  => 'TOTAL',
                     'category' => 'TOTAL',
                     'cashier'  => 'TOTAL OMZET (TERBAYAR)',
-                    'best'     => 'TOTAL'
+                    'best'     => 'TOTAL',
+                    'unpaid'   => 'TOTAL PIUTANG'
                 ];
                 $totalLabel = isset($labelMap[$tab]) ? $labelMap[$tab] : 'TOTAL';
                 if ($tab === 'best' || $tab === 'category'):
@@ -529,6 +550,11 @@ ob_start();
                 <td class="r total-amount"><?= sPdfRp($total) ?></td>
                 <td></td>
                 <?php elseif ($tab === 'all'):
+                ?>
+                <td colspan="4" class="r"><?= sPdfEscape($totalLabel) ?></td>
+                <td class="r total-amount"><?= sPdfRp($total) ?></td>
+                <td></td>
+                <?php elseif ($tab === 'unpaid'):
                 ?>
                 <td colspan="4" class="r"><?= sPdfEscape($totalLabel) ?></td>
                 <td class="r total-amount"><?= sPdfRp($total) ?></td>

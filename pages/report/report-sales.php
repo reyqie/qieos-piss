@@ -173,6 +173,17 @@
                             </div>
                         </button>
 
+                        <button class="report-menu-item"
+                            data-group="penjualan" data-tab="unpaid"
+                            onclick="switchReportTab('unpaid', this)">
+                            <i class="fas fa-file-invoice-dollar"></i>
+
+                            <div>
+                                <h6>Piutang</h6>
+                                <small>Nota yang belum terbayar</small>
+                            </div>
+                        </button>
+
                     </div>
 
                 </div>
@@ -192,6 +203,7 @@
                 <?php include 'sales/content-category.php' ?>
                 <?php include 'sales/content-cashier.php' ?>
                 <?php include 'sales/content-bestseller.php' ?>
+                <?php include 'sales/content-unpaid.php' ?>
             </div>
 
         </div>
@@ -213,7 +225,8 @@
         product:  { body: "#reportProductBody",  card: "#reportProductSummaryCard",  label: "#totalProductAmountLabel",  url: "sales/report-product.php",  colspan: 6, icon: "fa-box",             empty: "Pilih produk terlebih dahulu untuk melihat laporan penjualan." },
         category: { body: "#reportCategoryBody", card: "#reportCategorySummaryCard", label: "#totalCategoryAmountLabel", url: "sales/report-category.php", colspan: 5, icon: "fa-tags",            empty: "Pilih kategori terlebih dahulu untuk melihat laporan penjualan." },
         cashier:  { body: "#reportCashierBody",  card: "#reportCashierSummaryCard",  label: "#totalCashierAmountLabel",  url: "sales/report-cashier.php",  colspan: 5, icon: "fa-cash-register",   empty: "Pilih kasir terlebih dahulu untuk melihat laporan penjualan." },
-        best:     { body: "#reportBestBody",     card: "#reportBestSummaryCard",     label: "#totalBestAmountLabel",     url: "sales/report-best.php",     colspan: 5, icon: "fa-trophy",          empty: "Silakan pilih tanggal awal dan tanggal akhir untuk menampilkan produk terlaris." }
+        best:     { body: "#reportBestBody",     card: "#reportBestSummaryCard",     label: "#totalBestAmountLabel",     url: "sales/report-best.php",     colspan: 5, icon: "fa-trophy",          empty: "Silakan pilih tanggal awal dan tanggal akhir untuk menampilkan produk terlaris." },
+        unpaid:   { body: "#reportUnpaidBody",   card: "#reportUnpaidSummaryCard",   label: "#totalUnpaidAmountLabel",   url: "sales/report-unpaid.php",   colspan: 6, icon: "fa-file-invoice-dollar", empty: "Tidak ada piutang." }
     };
 
     const panelMap = {
@@ -226,7 +239,8 @@
         product: "#productContent",
         category: "#categoryContent",
         cashier: "#cashierContent",
-        best: "#bestContent"
+        best: "#bestContent",
+        unpaid: "#unpaidContent"
     };
 
     function emptyHtml(cfg, message){
@@ -389,7 +403,7 @@
 
         setReportGroup($(el).data("group"));
 
-        $("#summaryContent, #omzetContent, #expenseContent, #profitContent, #marginContent, #allContent, #productContent, #categoryContent, #cashierContent, #bestContent").hide();
+        $("#summaryContent, #omzetContent, #expenseContent, #profitContent, #marginContent, #allContent, #productContent, #categoryContent, #cashierContent, #bestContent, #unpaidContent").hide();
         $(panelMap[tab] || "#allContent").show();
 
         loadReport(tab);
@@ -423,6 +437,7 @@
         $("#category_id, #first_date_category, #last_date_category").on("change", function(){ loadReport("category"); });
         $("#cashier_id, #first_date_cashier, #last_date_cashier").on("change", function(){ loadReport("cashier"); });
         $("#first_date_best, #last_date_best, #best_limit").on("change", function(){ loadReport("best"); });
+        $("#first_date_unpaid, #last_date_unpaid").on("change", function(){ loadReport("unpaid"); });
 
         let activeItem = $(".report-menu-item.active").first();
         let defaultSub = activeItem.data("tab") || "all";
